@@ -63,6 +63,7 @@ jobs:
   security-scan:
      name: security scan
      runs-on: ubuntu-latest
+     needs: test-stage
 
      steps:
        - name: Checkout repo
@@ -86,8 +87,9 @@ jobs:
       - name: download the artifact
         uses: actions/download-artifact@v4
         with:
-         name: download from generated artifact
-         path: 'dependency-results.sbom.json'
+         name: my-artifact
+      - name: Display structure of downloaded files
+        run: ls -R
 
     
 
