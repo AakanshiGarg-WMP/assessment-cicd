@@ -33,6 +33,15 @@ jobs:
       - name: checkout repository
         uses: actions/checkout@v4
 
+      - name: set up node environment
+        uses: actions/setup-node@v4
+        with:
+         node-version: "24"
+         cache: "npm"
+
+      - name: install dependencies 
+        run: npm ci
+
       - name: run automated test
         run: npm test
       
