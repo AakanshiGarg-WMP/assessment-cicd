@@ -94,6 +94,8 @@ jobs:
          ls -R
          echo "Deployment done"
          echo "token ${{ secrets.DEPLOY_TOKEN }}"
+         echo "workflow-level env ${{ vars.WORKFLOW_ENV }}"
+         echo "job level env ${{ vars.JOB_LEVEL }}"
 
 
     
