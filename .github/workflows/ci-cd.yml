@@ -44,6 +44,22 @@ jobs:
 
       - name: run automated test
         run: npm test
+
+  security-scan:
+     name: security scan
+     runs-on: ubuntu-latest
+
+     steps:
+       - name: Checkout repo
+         uses: actions/checkout@v4
+
+       - name: scan the code
+         run: npm audit
+
+       - name: SAST using semgrep
+         uses: semgrep/semgrep-action@v1
+         with:
+          config: p/javascript
       
       
 
