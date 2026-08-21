@@ -1,0 +1,4 @@
+node_modules/
+*.json.sbom
+actions_runner/
+*.log
