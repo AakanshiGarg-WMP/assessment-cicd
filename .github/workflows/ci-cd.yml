@@ -79,7 +79,7 @@ jobs:
 
   Deployment:
      name: deploy 
-     runs-on: ubuntu-latest
+     runs-on: self-hosted
      environment: Production
      needs: security-scan
 
@@ -87,9 +87,14 @@ jobs:
       - name: download the artifact
         uses: actions/download-artifact@v4
         with:
-         name: my-artifact
+         path: 'dependency-results.sbom.json'
+         pattern: sha256:*
       - name: Display structure of downloaded files
-        run: ls -R
+        run: |
+         ls -R
+         echo "Deployment done"
+         echo "token ${{ secrets.DEPLOY_TOKEN }}"
+
 
     
 
