@@ -1,0 +1,28 @@
+name: ci-cd assessment
+
+on:
+  push:
+    branches: ["main"]
+
+  workflow_dispatch:
+
+jobs:
+  Build-stage:
+    name: build the application
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout repository
+        uses: acttion/checkout@v4
+      
+      - name: set up node environment
+        uses: actions/setup-node@v4
+        with:
+         node-version: "24"
+         cache: "npm"
+
+      - name: install dependencies 
+        run: npm ci
+
+      - name: run automated test 
+        run: npm test
