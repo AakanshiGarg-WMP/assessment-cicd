@@ -24,5 +24,19 @@ jobs:
       - name: install dependencies 
         run: npm ci
 
-      - name: run automated test 
+  test-stage:
+    name: test the application
+    runs-on: ubuntu-latest
+    needs: Build-stage
+
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v4
+
+      - name: run automated test
         run: npm test
+      
+      
+
+
+  
