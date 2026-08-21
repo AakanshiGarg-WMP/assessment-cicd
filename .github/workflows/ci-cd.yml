@@ -24,6 +24,21 @@ jobs:
       - name: install dependencies 
         run: npm ci
 
+      - name: generate artifact
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          scan-type: 'fs'
+          format: 'github'
+          output: 'dependency-results.sbom.json'
+          scan-ref: '.'
+          github-pat: ${{ secrets.GITHUB_TOKEN }} # or ${{ secrets.github_pat_name }} if you're using a PAT
+
+      - name: upload artifact
+        uses: actions/upload-artifact@v4
+        with: 
+         name: artifact upload
+         path: 'dependency-results.sbom.json'
+
   test-stage:
     name: test the application
     runs-on: ubuntu-latest
@@ -60,6 +75,8 @@ jobs:
          uses: semgrep/semgrep-action@v1
          with:
           config: p/javascript
+
+  
       
       
 
