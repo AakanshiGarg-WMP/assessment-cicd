@@ -1,0 +1,30 @@
+name: rollback workflow
+on:
+  workflow_dispatch:
+
+jobs:
+  rollback:
+    name: download and rollback
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v4
+
+      - name: download artifact
+        uses: actions/download-artifact@v4
+        with:
+          path: "dependency-results.sbom.json"
+          pattern: "sha256:*"
+
+  Deploy-rollback:
+    name: deploy
+    runs-on: self-hosted
+    steps:
+      - name: deploy the same
+        run: |
+          ls -R
+          echo "Deployment done"
+          echo "token ${{ secrets.DEPLOY_TOKEN }}"
+          echo "workflow-level env ${{ vars.WORKFLOW_ENV }}"
+          echo "job level env ${{ vars.JOB_LEVEL }}"
